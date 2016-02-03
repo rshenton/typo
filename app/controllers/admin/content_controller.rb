@@ -29,6 +29,7 @@ class Admin::ContentController < Admin::BaseController
 
   def edit
     @article = Article.find(params[:id])
+    @is_admin_user = Profile.find(current_user.profile_id).label == "admin"
     unless @article.access_by? current_user
       redirect_to :action => 'index'
       flash[:error] = _("Error, you are not allowed to perform this action")
@@ -50,6 +51,21 @@ class Admin::ContentController < Admin::BaseController
     @record.destroy
     flash[:notice] = _("This article was deleted successfully")
     redirect_to :action => 'index'
+  end
+
+  def merge_article
+    if Profile.find(current_user.profile_id).label != "admin"
+      flash[:error] = _("Only admins may merge articles")
+      redirect_to admin_content_path
+    end
+    
+    if Article.find_by_id(params[:id]).merge_with(params[:merge_article])
+      flash[:notice] = _("Articles merged!")
+    else
+      flash[:notice] = _("Articles not merged!")
+    end
+    
+    redirect_to admin_content_path
   end
 
   def insert_editor
