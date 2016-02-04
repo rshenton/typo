@@ -417,7 +417,7 @@ class Article < Content
   end
 
   def merge_with other_article_id
-    begin
+    #begin
       to_merge = Article.find_by_id(other_article_id)
       if !self.id or !to_merge or self.id == to_merge.id
         return false
@@ -428,9 +428,9 @@ class Article < Content
       self.save!
 
       Article.find_by_id(other_article_id).destroy
-    rescue
-      return false
-    end
+    #rescue
+    #  return false
+    #end
   end
 
   protected

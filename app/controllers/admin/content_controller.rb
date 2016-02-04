@@ -54,18 +54,24 @@ class Admin::ContentController < Admin::BaseController
   end
 
   def merge_article
-    if !current_user.admin?
-      flash[:error] = _("Only admins may merge articles")
-      return redirect_to(admin_content_path)
+    #if !current_user.admin?
+    #  flash[:error] = _("Only admins may merge articles")
+    #  return redirect_to(admin_content_path)
+    #end
+    
+    #if Article.find_by_id(params[:id]).merge_with(params[:merge_article])
+    #  flash[:notice] = _("Articles merged!")
+    #  redirect_to admin_content_path
+    #else
+    #  flash[:error] = _("Articles not merged!")
+    #  redirect_to :action => :edit, :id => params[:id]
+    #end
+    
+    if current_user.admin?
+      Article.find_by_id(params[:id]).merge_with(params[:merge_article])
     end
     
-    if Article.find_by_id(params[:id]).merge_with(params[:merge_article])
-      flash[:notice] = _("Articles merged!")
-      redirect_to admin_content_path
-    else
-      flash[:error] = _("Articles not merged!")
-      redirect_to :action => :edit, :id => params[:id]
-    end
+    redirect_to :action => :edit, :id => params[:id]
   end
 
   def insert_editor
