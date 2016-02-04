@@ -61,11 +61,12 @@ class Admin::ContentController < Admin::BaseController
     
     if Article.find_by_id(params[:id]).merge_with(params[:merge_article])
       flash[:notice] = _("Articles merged!")
+      redirect_to admin_content_path
     else
       flash[:notice] = _("Articles not merged!")
+      redirect_to :action => :edit, :id => params[:id]
     end
     
-    redirect_to admin_content_path
   end
 
   def insert_editor

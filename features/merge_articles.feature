@@ -70,7 +70,7 @@ Feature: Merge Articles
         And I am on the edit article page with id 3
         When I fill in "merge_article" with "3"
         And I press "Merge"
-        Then I should be on the admin content page
+        Then I should be on the edit article page with id 3
         And I should see "Articles not merged!"
         
     Scenario: Can not merge article to non-existant article
@@ -78,5 +78,5 @@ Feature: Merge Articles
         And I am on the edit article page with id 3
         When I fill in "merge_article" with "0"
         And I press "Merge"
-        Then I should be on the admin content page
+        Then I should be on the edit article page with id 3
         And I should see "Articles not merged!"
