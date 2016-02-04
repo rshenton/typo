@@ -417,16 +417,20 @@ class Article < Content
   end
 
   def merge_with other_article_id
-    to_merge = Article.find_by_id(other_article_id)
-    if !self.id or !to_merge or self.id == to_merge.id
+    begin
+      to_merge = Article.find_by_id(other_article_id)
+      if !self.id or !to_merge or self.id == to_merge.id
+        return false
+      end
+
+      self.body = "#{self.body}\r\n#{to_merge.body}"
+      self.comments << to_merge.comments
+      self.save!
+
+      Article.find_by_id(other_article_id).destroy
+    rescue
       return false
     end
-
-    self.body = "#{self.body}\r\n#{to_merge.body}"
-    self.comments << to_merge.comments
-    self.save!
-
-    Article.find_by_id(other_article_id).destroy
   end
 
   protected

@@ -29,7 +29,7 @@ class Admin::ContentController < Admin::BaseController
 
   def edit
     @article = Article.find(params[:id])
-    @is_admin_user = Profile.find(current_user.profile_id).label == "admin"
+    @is_admin_user = current_user.admin?
     unless @article.access_by? current_user
       redirect_to :action => 'index'
       flash[:error] = _("Error, you are not allowed to perform this action")
@@ -54,7 +54,7 @@ class Admin::ContentController < Admin::BaseController
   end
 
   def merge_article
-    if Profile.find(current_user.profile_id).label != "admin"
+    if !current_user.admin?
       flash[:error] = _("Only admins may merge articles")
       redirect_to admin_content_path
     end
@@ -63,10 +63,9 @@ class Admin::ContentController < Admin::BaseController
       flash[:notice] = _("Articles merged!")
       redirect_to admin_content_path
     else
-      flash[:notice] = _("Articles not merged!")
+      flash[:error] = _("Articles not merged!")
       redirect_to :action => :edit, :id => params[:id]
     end
-    
   end
 
   def insert_editor
