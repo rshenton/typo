@@ -53,13 +53,13 @@ class Admin::ContentController < Admin::BaseController
     redirect_to :action => 'index'
   end
 
-  def merge_article
+  def merge_with
     #if !current_user.admin?
     #  flash[:error] = _("Only admins may merge articles")
     #  return redirect_to(admin_content_path)
     #end
     
-    #if Article.find_by_id(params[:id]).merge_with(params[:merge_article])
+    #if Article.find_by_id(params[:id]).merge_with(params[:merge_with])
     #  flash[:notice] = _("Articles merged!")
     #  redirect_to admin_content_path
     #else
@@ -68,7 +68,7 @@ class Admin::ContentController < Admin::BaseController
     #end
     
     if current_user.admin?
-      Article.find_by_id(params[:id]).merge_with(params[:merge_article])
+      Article.find_by_id(params[:id]).merge_with(params[:merge_with])
     end
     
     redirect_to :action => :edit, :id => params[:id]

@@ -31,7 +31,7 @@ Feature: Merge Articles
 	    Given I am logged in as user "admin" with passcode "aaaaaaaa"
         And I am on the edit article page with id 3
         Then I should see "Merge Articles"
-        When I fill in "merge_article" with "4"
+        When I fill in "merge_with" with "4"
         And I press "Merge"
         Then I should be on the edit article page with id 3
     #    And I should see "Articles merged!"
@@ -39,7 +39,7 @@ Feature: Merge Articles
     Scenario: A merged article should contain the text of both previous articles
         Given I am logged in as user "admin" with passcode "aaaaaaaa"
         And I am on the edit article page with id 3
-        When I fill in "merge_article" with "4"
+        When I fill in "merge_with" with "4"
         And I press "Merge"
         Then I should be on the edit article page with id 3
         #Given article ids "3" and "4" have been merged
@@ -73,7 +73,7 @@ Feature: Merge Articles
     Scenario: Can not merge article to itself
         Given I am logged in as user "admin" with passcode "aaaaaaaa"
         And I am on the edit article page with id 3
-        When I fill in "merge_article" with "3"
+        When I fill in "merge_with" with "3"
         And I press "Merge"
         Then I should be on the edit article page with id 3
     #    And I should see "Articles not merged!"
@@ -81,7 +81,7 @@ Feature: Merge Articles
     Scenario: Can not merge article to non-existant article
         Given I am logged in as user "admin" with passcode "aaaaaaaa"
         And I am on the edit article page with id 3
-        When I fill in "merge_article" with "0"
+        When I fill in "merge_with" with "0"
         And I press "Merge"
         Then I should be on the edit article page with id 3
     #    And I should see "Articles not merged!"

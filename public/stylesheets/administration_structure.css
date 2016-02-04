@@ -199,12 +199,12 @@ label.editor {
 	border-bottom: 1px solid #00438a;
 }
 
-label[for=merge_article] {
+label[for=merge_with] {
         float:none;
         padding-right: 6px;
 }
 
-#merge_article_submit {
+#merge_with_submit {
         display:block;
 }
 
